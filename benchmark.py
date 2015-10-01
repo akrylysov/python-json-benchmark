@@ -46,22 +46,22 @@ def print_results(results):
 
 def run_benchmarks():
     with open('data/twitter.json') as f:
-        data = f.read()
-    obj = json.loads(data)
+        large_obj_data = f.read()
+    large_obj = json.loads(large_obj_data)
 
     with open('data/one-json-per-line.txt') as f:
-        data_byline = f.readlines()
-    objects_byline = [json.loads(line) for line in data_byline]
+        small_objs_data = f.readlines()
+    small_objs = [json.loads(line) for line in small_objs_data]
 
     results = defaultdict(dict)
     modules = import_modules()
     for module in modules:
         module_name = module.__name__
         print('Running {} benchmarks...'.format(module_name))
-        results['loads'][module_name] = timeit.timeit(lambda: benchmark_loads(module, data), number=NUMBER)
-        results['dumps'][module_name] = timeit.timeit(lambda: benchmark_dumps(module, obj), number=NUMBER)
-        results['loads by line'][module_name] = timeit.timeit(lambda: benchmark_loads_byline(module, data_byline), number=NUMBER)
-        results['dumps by line'][module_name] = timeit.timeit(lambda: benchmark_dumps_byline(module, objects_byline), number=NUMBER)
+        results['loads (large obj)'][module_name] = timeit.timeit(lambda: benchmark_loads(module, large_obj_data), number=NUMBER)
+        results['dumps (large obj)'][module_name] = timeit.timeit(lambda: benchmark_dumps(module, large_obj), number=NUMBER)
+        results['loads (small objs)'][module_name] = timeit.timeit(lambda: benchmark_loads_byline(module, small_objs_data), number=NUMBER)
+        results['dumps (small objs)'][module_name] = timeit.timeit(lambda: benchmark_dumps_byline(module, small_objs), number=NUMBER)
 
     print('\nResults\n=======')
     print_results(results)
