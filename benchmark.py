@@ -60,7 +60,7 @@ def print_rest_tables(results):
     print(':widths: 20{}'.format(', 10' * len(module_names)))
     print()
     for benchmark_name, results in results.items():
-        print('**{}**, {}'.format(benchmark_name, ', '.join(['{:.3f}'.format(t) for t in results.values()])))
+        print('*{}*, {}'.format(benchmark_name, ', '.join(['{:.3f}'.format(t) for t in results.values()])))
 
 
 def save_plots(results):
