@@ -95,7 +95,7 @@ def save_plots(results):
     for rect in rects:
         autolabel(rect)
 
-    ax.legend((rc[0] for rc in rects), module_names, loc='best')
+    ax.legend([rc[0] for rc in rects], module_names, loc='best')
     ax.set_ylabel('Time (s)')
     ax.set_title(INTERPRETER)
     ax.set_xticks([j + 0.38 for j in range(n_benchmarks)])
