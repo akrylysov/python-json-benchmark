@@ -123,6 +123,7 @@ def run_benchmarks(generate_rest_tables, generate_plots, verbose):
         ('loads (small objs)', lambda m: benchmark_loads_byline(m, small_objs_data)),
         ('dumps (small objs)', lambda m: benchmark_dumps_byline(module, small_objs)),
     ]
+    print(sys.version)
 
     results = OrderedDict()
     modules = import_modules()
