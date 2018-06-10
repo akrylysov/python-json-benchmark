@@ -4,6 +4,7 @@ import json
 import sys
 import timeit
 from collections import OrderedDict
+from io import open
 
 
 N_RUNS = 100
@@ -108,11 +109,11 @@ def save_plots(results):
 
 
 def run_benchmarks(generate_rest_tables, generate_plots, verbose):
-    with open('data/twitter.json') as f:
+    with open('data/twitter.json', encoding='utf-8') as f:
         large_obj_data = f.read()
     large_obj = json.loads(large_obj_data)
 
-    with open('data/one-json-per-line.txt') as f:
+    with open('data/one-json-per-line.txt', encoding='utf-8') as f:
         small_objs_data = f.readlines()
     small_objs = [json.loads(line) for line in small_objs_data]
 
@@ -122,6 +123,7 @@ def run_benchmarks(generate_rest_tables, generate_plots, verbose):
         ('loads (small objs)', lambda m: benchmark_loads_byline(m, small_objs_data)),
         ('dumps (small objs)', lambda m: benchmark_dumps_byline(module, small_objs)),
     ]
+    print(sys.version)
 
     results = OrderedDict()
     modules = import_modules()
