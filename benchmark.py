@@ -8,7 +8,7 @@ from io import open
 
 
 N_RUNS = 100
-MODULES = ('json', 'simplejson', 'ujson', 'rapidjson')
+MODULES = ('json', 'simplejson', 'ujson', 'rapidjson', 'cjson')
 
 try:
     import __pypy__
@@ -129,6 +129,9 @@ def run_benchmarks(generate_rest_tables, generate_plots, verbose):
     modules = import_modules()
     for module in modules:
         module_name = module.__name__
+        if module_name == 'cjson':
+            module.loads = module.decode
+            module.dumps = module.encode
         print('Running {} benchmarks...'.format(module_name))
         for bencmark_name, fn in benchmarks:
             time = timeit.timeit(lambda: fn(module), number=N_RUNS)
